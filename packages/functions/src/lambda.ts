@@ -1,8 +1,9 @@
-import { ApiHandler } from "sst/node/api";
-import { Time } from "@sst-sms-receiving/core/time";
+import { SNSHandler } from 'aws-lambda';
 
-export const handler = ApiHandler(async (_evt) => {
-  return {
-    body: `Hello world. The time is ${Time.now()}`,
-  };
-});
+export const handler: SNSHandler = async (_evt) => {
+	console.log(typeof _evt);
+
+	console.log(JSON.parse(_evt));
+	
+  
+};

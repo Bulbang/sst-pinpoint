@@ -1,22 +1,26 @@
-import { StackContext, Api,  } from "sst/constructs";
-import * as pinpoint from '@aws-cdk/aws-pinpoint'
-import * as cdk from 'aws-cdk-lib'
-import {Construct} from '@aws-cdk/core'
+import { StackContext, Api, Topic, use } from 'sst/constructs';
+import * as pinpoint from 'aws-cdk-lib/aws-pinpoint';
 
+export function PinpointApp({ stack, app }: StackContext) {
+	const { ref } = new pinpoint.CfnApp(stack, 'app', {
+		name: `${stack.stackName}`,
+	});
 
-export function API({ stack }: StackContext) {
-  const api = new Api(stack, "api", {
-    routes: {
-      "GET /": "packages/functions/src/lambda.handler",
-    },
-  });
-  stack.addOutputs({
-    ApiEndpoint: api.url,
-  });
+	return { ref };
 }
 
-export function PinpointApp ({stack, app}: StackContext) {
-  const pinpointApp = new pinpoint.CfnApp(stack as any, "app",{
-    name: `${stack.stackName}`
-  })
+export function PinpointSmsChannel({ stack }: StackContext) {
+	const { ref } = use(PinpointApp);
+
+	const smsChannel = new pinpoint.CfnSMSChannel(stack, 'MyCfnSMSChannel', {
+		applicationId: ref,
+	});
+}
+
+export function SnsTopic({ stack }: StackContext) {
+	const snsTopic = new Topic(stack, 'topic', {
+		subscribers: {
+			subscriber1: 'packages/functions/src/lambda.handler',
+		},
+	});
 }

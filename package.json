@@ -21,8 +21,5 @@
   "workspaces": [
     "packages/*"
   ],
-  "dependencies": {
-    "@aws-cdk/aws-pinpoint": "^1.190.0",
-    "@aws-cdk/core": "^1.196.0"
-  }
+  "dependencies": {}
 }
