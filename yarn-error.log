@@ -1,5 +1,5 @@
 Arguments: 
-  /opt/homebrew/Cellar/node/19.3.0/bin/node /Users/bulbang/.cache/node/corepack/yarn/1.22.19/bin/yarn.js add -W @aws-cdk
+  /opt/homebrew/Cellar/node/19.3.0/bin/node /Users/bulbang/.cache/node/corepack/yarn/1.22.19/bin/yarn.js add -W @aws-sdk
 
 PATH: 
   /opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/homebrew/bin:/opt/homebrew/sbin:/Users/bulbang/.cargo/bin
@@ -14,7 +14,7 @@ Platform:
   darwin arm64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/@aws-cdk: Request "https://registry.yarnpkg.com/@aws-cdk" returned a 405
+  Error: https://registry.yarnpkg.com/@aws-sdk: Request "https://registry.yarnpkg.com/@aws-sdk" returned a 405
       at params.callback [as _callback] (/Users/bulbang/.cache/node/corepack/yarn/1.22.19/lib/cli.js:66154:18)
       at self.callback (/Users/bulbang/.cache/node/corepack/yarn/1.22.19/lib/cli.js:140890:22)
       at Request.emit (node:events:513:28)
@@ -50,9 +50,7 @@ npm manifest:
     "workspaces": [
       "packages/*"
     ],
-    "dependencies": {
-      "@aws-cdk/aws-pinpoint": "^1.190.0"
-    }
+    "dependencies": {}
   }
 
 yarn manifest: 
@@ -101,14 +99,6 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/@aws-cdk/aws-apigatewayv2-integrations-alpha/-/aws-apigatewayv2-integrations-alpha-2.62.2-alpha.0.tgz#7e929fdbd6875b45766228f2349ae4c450c44ae8"
     integrity sha512-dfqtZQhf1dnzaWCEjAB2PUvG4ftyaBbeEgsaHXsRduOf8TanSbpbbenP857+Q17t6V11cs41WZK3u8AEfudxzQ==
   
-  "@aws-cdk/aws-pinpoint@^1.190.0":
-    version "1.190.0"
-    resolved "https://registry.yarnpkg.com/@aws-cdk/aws-pinpoint/-/aws-pinpoint-1.190.0.tgz#f3ce8dc31ee110d8aa93bc7b20a8fbafe9375082"
-    integrity sha512-aomPLccElQ4kuM9TP6Fb4xfptRHD+yZFwvs99XUhU/dzzbtcqs1wV/Fkp1417sJnV2WhxUoMxiok45Lf0glq8g==
-    dependencies:
-      "@aws-cdk/core" "1.190.0"
-      constructs "^3.3.69"
-  
   "@aws-cdk/cfnspec@2.62.2":
     version "2.62.2"
     resolved "https://registry.yarnpkg.com/@aws-cdk/cfnspec/-/cfnspec-2.62.2.tgz#d39b271d812b98e98a9f5e98ca22b2da421d1f9e"
@@ -116,14 +106,6 @@ Lockfile:
     dependencies:
       fs-extra "^9.1.0"
       md5 "^2.3.0"
-  
-  "@aws-cdk/cloud-assembly-schema@1.190.0":
-    version "1.190.0"
-    resolved "https://registry.yarnpkg.com/@aws-cdk/cloud-assembly-schema/-/cloud-assembly-schema-1.190.0.tgz#ece355947e2a4308781e8066856141c3ac325017"
-    integrity sha512-RX2GYePLQh3rS3OpeEw1NF1L8DWEoZ6yMq3IF9ld9zU/mul2KWuGFK6ZrkvHrLCesuvam7zwD7wYIIRgYDFG9g==
-    dependencies:
-      jsonschema "^1.4.1"
-      semver "^7.3.8"
   
   "@aws-cdk/cloud-assembly-schema@2.62.2":
     version "2.62.2"
@@ -146,28 +128,6 @@ Lockfile:
       string-width "^4.2.3"
       table "^6.8.1"
   
-  "@aws-cdk/core@1.190.0":
-    version "1.190.0"
-    resolved "https://registry.yarnpkg.com/@aws-cdk/core/-/core-1.190.0.tgz#e60be56482e0b2443160818a9bef983a73dc7d7c"
-    integrity sha512-ClgBoLsTEWu6J/KUyGsu29tSzevRpRt7SAMZYeq82HFUztXYmqtElCwU5in/rj/zY+TGcsNGHyftgLXdWLzbOw==
-    dependencies:
-      "@aws-cdk/cloud-assembly-schema" "1.190.0"
-      "@aws-cdk/cx-api" "1.190.0"
-      "@aws-cdk/region-info" "1.190.0"
-      "@balena/dockerignore" "^1.0.2"
-      constructs "^3.3.69"
-      fs-extra "^9.1.0"
-      ignore "^5.2.4"
-      minimatch "^3.1.2"
-  
-  "@aws-cdk/cx-api@1.190.0":
-    version "1.190.0"
-    resolved "https://registry.yarnpkg.com/@aws-cdk/cx-api/-/cx-api-1.190.0.tgz#3243baea35a3ec744105541e70cc058fc21966ae"
-    integrity sha512-DGLU/EVR/55yOlx1E13CVVdBAtFc70BKGJjBxaptB3+c3LuHJYxP9WU8zCgu3ZGeuikatzJSQAVlcSv5xz9nyQ==
-    dependencies:
-      "@aws-cdk/cloud-assembly-schema" "1.190.0"
-      semver "^7.3.8"
-  
   "@aws-cdk/cx-api@2.62.2":
     version "2.62.2"
     resolved "https://registry.yarnpkg.com/@aws-cdk/cx-api/-/cx-api-2.62.2.tgz#d964328caf924b026c106bb536658daa2169fd42"
@@ -175,11 +135,6 @@ Lockfile:
     dependencies:
       "@aws-cdk/cloud-assembly-schema" "2.62.2"
       semver "^7.3.8"
-  
-  "@aws-cdk/region-info@1.190.0":
-    version "1.190.0"
-    resolved "https://registry.yarnpkg.com/@aws-cdk/region-info/-/region-info-1.190.0.tgz#0dcbb3b04f4e1273f82d1d934e8d34bd9c739104"
-    integrity sha512-Oma5JTwNhmOEZo8xC1Dk7F2yPKzzO2RNCSPukyHYWeBAD96sqhCknxl9VXsB9QBe0NZgxTsoDGstR/TTIvxvMQ==
   
   "@aws-cdk/region-info@2.62.2":
     version "2.62.2"
@@ -2948,11 +2903,6 @@ Lockfile:
     version "10.1.156"
     resolved "https://registry.yarnpkg.com/constructs/-/constructs-10.1.156.tgz#3ccd82b7f07e8921d015f1ae9317f851ff6b87d4"
     integrity sha512-BTZ3Kyt++/YFlph/ioqbDhzSKVMqHRHvc99FxU4b705ZP6s2IkDxMLCMinC70USMTJWFbO1p02Egux7sk4q07A==
-  
-  constructs@^3.3.69:
-    version "3.4.268"
-    resolved "https://registry.yarnpkg.com/constructs/-/constructs-3.4.268.tgz#5d9eebe5eff72ba7608435d01a3631e0d31f360c"
-    integrity sha512-MqM1u35nLAt4IbV2L1le/4svB/Rw/reBEAeI3ibT7vObUIqNxjpKc+3SYgpt0yEGageugtroNJWpYjp/ic4Idw==
   
   content-disposition@0.5.4:
     version "0.5.4"

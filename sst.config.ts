@@ -1,5 +1,5 @@
 import { SSTConfig } from 'sst';
-import { PinpointApp, PinpointSmsChannel, SnsTopic } from './stacks/MyStack';
+import { PinpointApp, PinpointSmsChannel, SnsTopic,WSAPI } from './stacks/MyStack';
 
 export default {
 	config(_input) {
@@ -9,6 +9,6 @@ export default {
 		};
 	},
 	stacks(app) {
-		app.stack(PinpointApp).stack(PinpointSmsChannel).stack(SnsTopic);
+		app.stack(PinpointApp).stack(PinpointSmsChannel).stack(SnsTopic).stack(WSAPI);
 	},
 } satisfies SSTConfig;
