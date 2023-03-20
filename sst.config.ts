@@ -9,6 +9,6 @@ export default {
 		};
 	},
 	stacks(app) {
-		app.stack(PinpointApp).stack(PinpointSmsChannel).stack(SnsTopic).stack(WSAPI);
+		app.stack(PinpointApp).stack(PinpointSmsChannel).stack(WSAPI).stack(SnsTopic);
 	},
 } satisfies SSTConfig;

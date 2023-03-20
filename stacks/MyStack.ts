@@ -8,7 +8,6 @@ import {
 } from 'sst/constructs';
 import * as pinpoint from 'aws-cdk-lib/aws-pinpoint';
 import * as iot from 'aws-cdk-lib/aws-iot';
-import * as apiV2 from 'aws-cdk-lib/aws-apigateway';
 
 iot.CfnPolicy;
 
@@ -29,22 +28,35 @@ export function PinpointSmsChannel({ stack }: StackContext) {
 }
 
 export function SnsTopic({ stack }: StackContext) {
+	const { table, wsApi } = use(WSAPI);
 	const snsTopic = new Topic(stack, 'topic', {
+		defaults: {
+			function: {
+				permissions: ['execute-api', 'dynamodb'],
+				bind: [table],
+				environment: {
+					WSURL: wsApi.url,
+				},
+			},
+		},
 		subscribers: {
 			subscriber1: 'packages/functions/src/lambda.handler',
 		},
 	});
 }
 
-
-
 export function WSAPI({ stack }: StackContext) {
 	const table = new Table(stack, 'Connections', {
 		fields: {
 			id: 'string',
+			terminalId: 'string',
 		},
-		primaryIndex: { partitionKey: 'id', 
-		 },
+		primaryIndex: { partitionKey: 'id' },
+		globalIndexes: {
+			GSI1: {
+				partitionKey: 'terminalId',
+			},
+		},
 	});
 
 	const wsApi = new WebSocketApi(stack, 'Api', {
@@ -65,20 +77,20 @@ export function WSAPI({ stack }: StackContext) {
 			function: {
 				bind: [table],
 				environment: {
-					WSURL: wsApi.url
+					WSURL: wsApi.url,
 				},
-				permissions: ['dynamodb', 'execute-api']
-			}
+				permissions: ['dynamodb', 'execute-api'],
+			},
 		},
 		routes: {
 			'POST /sendMessage': 'packages/functions/src/sendMessage.handler',
 		},
 	});
 
-	
-
 	stack.addOutputs({
 		wsApi: wsApi.url,
 		ApiEndpoint: api.url,
 	});
+
+	return { table, wsApi };
 }

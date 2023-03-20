@@ -1,14 +1,10 @@
 import { ApiGatewayManagementApi, DynamoDB } from 'aws-sdk';
 import { APIGatewayProxyHandler } from 'aws-lambda';
 import { Table } from 'sst/node/table';
-console.log(process.env.WSURL);
 
 const managementApi = new ApiGatewayManagementApi({
-    endpoint: process.env.WSURL?.replace('wss','https'),
+	endpoint: process.env.WSURL?.replace('wss', 'https'),
 });
-
-console.log(process.env.WSURL?.replace('wss','https'));
-
 
 const dynamoDb = new DynamoDB.DocumentClient();
 
@@ -17,17 +13,16 @@ export const handler: APIGatewayProxyHandler = async (event) => {
 	const domain = event.requestContext.domainName;
 	const stage = event.requestContext.stage;
 	const callbackUrl = `https://${domain}/${stage}`;
-    console.log(callbackUrl);
-    
-	
+	console.log(callbackUrl);
 
 	const { message, terminalId } = JSON.parse(event.body!);
 	console.log(terminalId);
 
 	const { Items: terminals } = await dynamoDb
-		.scan({
+		.query({
 			TableName: Table.Connections.tableName,
-			FilterExpression: 'terminalId = :t',
+			IndexName: 'GSI1',
+			KeyConditionExpression: 'terminalId = :t',
 			ExpressionAttributeValues: {
 				':t': terminalId,
 			},
@@ -57,8 +52,8 @@ export const handler: APIGatewayProxyHandler = async (event) => {
 					})
 					.promise();
 			} catch (error) {
-                console.error(error);
-                
+				console.error(error);
+
 				await dynamoDb
 					.delete({
 						TableName: Table.Connections.tableName,
